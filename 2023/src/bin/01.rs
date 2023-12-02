@@ -116,7 +116,7 @@ mod tests {
     use aoc::read_test_file_input;
 
     #[test]
-    fn test_solve_a() {
+    fn test_solve_one() {
         assert_eq!(
             solve_part_one(read_test_file_input("01_one.txt".to_string())),
             142
@@ -124,7 +124,7 @@ mod tests {
     }
 
     #[test]
-    fn test_solve_b() {
+    fn test_solve_two() {
         assert_eq!(
             solve_part_two(read_test_file_input("01_two.txt".to_string())),
             281
