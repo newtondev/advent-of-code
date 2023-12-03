@@ -5,8 +5,8 @@ fn main() {
     let res = solve(read_file_input("03.txt".to_string()));
 
     // Print the results
-    println!("One: {}", res.0);
-    println!("Two: {}", res.1);
+    println!("{}", res.0);
+    println!("{}", res.1);
 }
 
 fn solve(input: String) -> (u32, u32) {

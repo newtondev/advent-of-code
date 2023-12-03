@@ -4,8 +4,8 @@ use std::collections::HashMap;
 fn main() {
     let res = solve(read_file_input("02.txt".to_string()));
 
-    println!("One: {}", res.0);
-    println!("Two: {}", res.1);
+    println!("{}", res.0);
+    println!("{}", res.1);
 }
 
 fn solve(input: String) -> (u32, u32) {
