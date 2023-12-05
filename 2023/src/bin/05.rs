@@ -76,9 +76,9 @@ fn solve_part_one(input: String) -> u32 {
 }
 
 #[derive(Debug, Clone)]
-struct Range(i128, i128);
+struct Range(i64, i64);
 
-fn solve_part_two(input: String) -> i128 {
+fn solve_part_two(input: String) -> i64 {
     // Split up the subsections
     let parts: Vec<_> = input.split("\n\n").collect();
 
@@ -93,7 +93,7 @@ fn solve_part_two(input: String) -> i128 {
         .split(' ')
         .collect::<Vec<_>>()
         .iter()
-        .map(|s| s.parse::<i128>().unwrap())
+        .map(|s| s.parse::<i64>().unwrap())
         .collect::<Vec<_>>()
         .chunks(2)
         .map(|s| Range(s[0], s[0] + s[1]))
@@ -114,7 +114,7 @@ fn solve_part_two(input: String) -> i128 {
                         .split(' ')
                         .collect::<Vec<_>>()
                         .iter()
-                        .map(|n| n.parse::<i128>().unwrap())
+                        .map(|n| n.parse::<i64>().unwrap())
                         .collect::<Vec<_>>()
                 })
                 .collect::<Vec<_>>();
