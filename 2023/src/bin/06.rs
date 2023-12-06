@@ -15,7 +15,7 @@ fn solve(input: String) -> (i64, i64) {
         .unwrap();
 
     let p1: i64 = calculate(&times, &distances);
-    let p2: i64 = calculate(&times.replace(" ", ""), & distances.replace(" ", ""));
+    let p2: i64 = calculate(&times.replace(" ", ""), &distances.replace(" ", ""));
 
     (p1, p2)
 }
