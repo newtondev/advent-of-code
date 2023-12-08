@@ -25,11 +25,11 @@ fn solve(input: String) -> (i32, i32) {
         matches.push([1, s2]);
 
         if s2 > 0 {
-            p1 += 2_i32.pow(s2 as u32 -1);
+            p1 += 2_i32.pow(s2 as u32 - 1);
         }
     }
 
-    // Sole problem two    
+    // Sole problem two
     for i in 0..matches.len() {
         for j in 1..=matches[i][1] {
             matches[i + j as usize][0] += matches[i][0];
@@ -48,18 +48,12 @@ mod tests {
     #[test]
     fn test_solve_one() {
         let res = solve(read_test_file_input("04_one.txt".to_string()));
-        assert_eq!(
-            res.0,
-            13
-        );
+        assert_eq!(res.0, 13);
     }
 
     #[test]
     fn test_solve_two() {
         let res = solve(read_test_file_input("04_one.txt".to_string()));
-        assert_eq!(
-            res.1,
-            30
-        );
+        assert_eq!(res.1, 30);
     }
 }

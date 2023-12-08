@@ -5,7 +5,7 @@ use aoc::read_file_input;
 fn main() {
     let p1 = solve_part_one(read_file_input("05.txt".to_string()));
     let p2 = solve_part_two(read_file_input("05.txt".to_string()));
-    
+
     println!("{}", p1);
     println!("{}", p2);
 }
@@ -40,8 +40,7 @@ fn solve_part_one(input: String) -> u32 {
                 .iter()
                 .flat_map(|s| s.split('\n').collect::<Vec<_>>())
                 .map(|l| {
-                    l
-                        .split(' ')
+                    l.split(' ')
                         .collect::<Vec<_>>()
                         .iter()
                         .map(|n| n.parse::<usize>().unwrap())
@@ -55,20 +54,16 @@ fn solve_part_one(input: String) -> u32 {
     let locs = seeds
         .iter()
         .map(|seed| {
-            mappings
-                .iter()
-                .fold(*seed, |id, mapping| {
-                    let res = mapping.iter().find(|m| {
-                        m[1] <= id && id <= m[1] + m[2]
-                    });
-                    match res {
-                        Some(m) => {
-                            let offset = id - m[1];
-                            m[0] + offset
-                        }
-                        None => id
+            mappings.iter().fold(*seed, |id, mapping| {
+                let res = mapping.iter().find(|m| m[1] <= id && id <= m[1] + m[2]);
+                match res {
+                    Some(m) => {
+                        let offset = id - m[1];
+                        m[0] + offset
                     }
-                })
+                    None => id,
+                }
+            })
         })
         .collect::<Vec<_>>();
 
@@ -110,8 +105,7 @@ fn solve_part_two(input: String) -> i64 {
                 .iter()
                 .flat_map(|s| s.split('\n').collect::<Vec<_>>())
                 .map(|l| {
-                    l
-                        .split(' ')
+                    l.split(' ')
                         .collect::<Vec<_>>()
                         .iter()
                         .map(|n| n.parse::<i64>().unwrap())
@@ -132,38 +126,25 @@ fn solve_part_two(input: String) -> i64 {
             for mapping in m.iter() {
                 let offset = mapping[0] - mapping[1];
                 if cur.0 <= cur.1 && cur.0 < mapping[1] + mapping[2] && mapping[1] <= cur.1 {
-                    
                     if cur.0 < mapping[1] {
                         n_ranges.push(Range(cur.0, mapping[1] - 1));
                         cur.0 = mapping[1];
 
                         if cur.1 < mapping[1] + mapping[2] {
-                            n_ranges.push(Range(
-                                cur.0 + offset, 
-                                cur.1 + offset,
-                            ));
+                            n_ranges.push(Range(cur.0 + offset, cur.1 + offset));
                             cur.0 = cur.1 + 1;
                         } else {
-                            n_ranges.push(Range(
-                                cur.0 + offset, 
-                                mapping[1] + mapping[2] -1 + offset,
-                            ));
+                            n_ranges
+                                .push(Range(cur.0 + offset, mapping[1] + mapping[2] - 1 + offset));
                             cur.0 = mapping[1] + mapping[2];
                         }
                     } else if cur.1 < mapping[1] + mapping[2] {
-                        n_ranges.push(Range(
-                            cur.0 + offset,
-                            cur.1 + offset,
-                        ));
+                        n_ranges.push(Range(cur.0 + offset, cur.1 + offset));
                         cur.0 = cur.1 + 1;
                     } else {
-                        n_ranges.push(Range(
-                            cur.0 + offset,
-                            mapping[1] + mapping[2] -1 + offset,
-                        ));
+                        n_ranges.push(Range(cur.0 + offset, mapping[1] + mapping[2] - 1 + offset));
                         cur.0 = mapping[1] + mapping[2];
                     }
-
                 }
             }
 
@@ -177,10 +158,7 @@ fn solve_part_two(input: String) -> i64 {
 
     ranges.sort_by(|x, y| x.0.cmp(&y.0));
 
-    ranges
-        .first()
-        .unwrap()
-        .0
+    ranges.first().unwrap().0
 }
 
 #[cfg(test)]
@@ -191,18 +169,12 @@ mod tests {
     #[test]
     fn test_solve_one() {
         let res = solve_part_one(read_test_file_input("05_one.txt".to_string()));
-        assert_eq!(
-            res,
-            35
-        );
+        assert_eq!(res, 35);
     }
 
     #[test]
     fn test_solve_two() {
         let res = solve_part_two(read_test_file_input("05_one.txt".to_string()));
-        assert_eq!(
-            res,
-            46
-        );
+        assert_eq!(res, 46);
     }
 }

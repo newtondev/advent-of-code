@@ -7,9 +7,7 @@ struct Hand {
 
 impl Hand {
     fn new(line: &str, with_jokers: bool) -> Self {
-        let l: Vec<_> = line
-            .split_whitespace()
-            .collect();
+        let l: Vec<_> = line.split_whitespace().collect();
 
         let mut card_ch = l.iter().nth(0).unwrap().chars();
         let bid: u32 = l.iter().nth(1).unwrap().parse().unwrap();
@@ -24,11 +22,23 @@ impl Hand {
                     'A' => 12,
                     'K' => 11,
                     'Q' => 10,
-                    'J' => if with_jokers { 0 } else { 9 },
-                    'T' => if with_jokers { 9 } else { 8 },
+                    'J' => {
+                        if with_jokers {
+                            0
+                        } else {
+                            9
+                        }
+                    }
+                    'T' => {
+                        if with_jokers {
+                            9
+                        } else {
+                            8
+                        }
+                    }
                     n => n.to_digit(10).unwrap() as u32 - (if with_jokers { 1 } else { 2 }),
                 };
-                
+
                 if with_jokers && val == 0 {
                     jokers += 1;
                 } else {
@@ -71,9 +81,12 @@ fn solve(input: String) -> (usize, usize) {
 }
 
 fn calculate_winnings(inputs: &str, with_jokers: bool) -> usize {
-    let mut hands: Vec<Hand> = inputs.lines().map(|line| Hand::new(line, with_jokers)).collect();
+    let mut hands: Vec<Hand> = inputs
+        .lines()
+        .map(|line| Hand::new(line, with_jokers))
+        .collect();
     hands.sort_unstable_by_key(|hand| hand.strength);
-    
+
     hands
         .iter()
         .enumerate()
@@ -89,18 +102,12 @@ mod tests {
     #[test]
     fn test_solve_one() {
         let res = solve(read_test_file_input("07_one.txt".to_string()));
-        assert_eq!(
-            res.0,
-            6440
-        );
+        assert_eq!(res.0, 6440);
     }
 
     #[test]
     fn test_solve_two() {
         let res = solve(read_test_file_input("07_one.txt".to_string()));
-        assert_eq!(
-            res.1,
-            5905
-        );
+        assert_eq!(res.1, 5905);
     }
 }
