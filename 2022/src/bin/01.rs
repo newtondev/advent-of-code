@@ -49,18 +49,12 @@ mod tests {
     #[test]
     fn test_solve_one() {
         let res = solve(read_test_file_input("01_one.txt".to_string()));
-        assert_eq!(
-            res.0,
-            24000
-        );
+        assert_eq!(res.0, 24000);
     }
 
     #[test]
     fn test_solve_two() {
         let res = solve(read_test_file_input("01_one.txt".to_string()));
-        assert_eq!(
-            res.1,
-            45000
-        );
+        assert_eq!(res.1, 45000);
     }
 }
