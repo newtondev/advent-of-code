@@ -158,23 +158,35 @@ fn lcm(a: usize, b: usize) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use aoc::read_test_file_input;
+    use aoc::{read_file_input, read_test_file_input};
 
     #[test]
     fn test_solve_one_a() {
         let res = solve_part_one(&read_test_file_input("08_one_a.txt".to_string()));
-        assert_eq!(res, 2,);
+        assert_eq!(res, 2);
     }
 
     #[test]
     fn test_solve_one_b() {
         let res = solve_part_one(&read_test_file_input("08_one_b.txt".to_string()));
-        assert_eq!(res, 6,);
+        assert_eq!(res, 6);
     }
 
     #[test]
     fn test_solve_two() {
         let res = solve_part_two(&read_test_file_input("08_two.txt".to_string()));
-        assert_eq!(res, 6,);
+        assert_eq!(res, 6);
+    }
+
+    #[test]
+    fn actual_solve_one() {
+        let res = solve_part_one(&read_file_input("08.txt".to_string()));
+        assert_eq!(res, 20093);
+    }
+
+    #[test]
+    fn actual_solve_two() {
+        let res = solve_part_two(&read_file_input("08.txt".to_string()));
+        assert_eq!(res, 22103062509257);
     }
 }

@@ -97,7 +97,7 @@ fn calculate_winnings(inputs: &str, with_jokers: bool) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use aoc::read_test_file_input;
+    use aoc::{read_file_input, read_test_file_input};
 
     #[test]
     fn test_solve_one() {
@@ -109,5 +109,17 @@ mod tests {
     fn test_solve_two() {
         let res = solve(read_test_file_input("07_one.txt".to_string()));
         assert_eq!(res.1, 5905);
+    }
+
+    #[test]
+    fn actual_solve_one() {
+        let res = solve(read_file_input("07.txt".to_string()));
+        assert_eq!(res.0, 252656917);
+    }
+
+    #[test]
+    fn actual_solve_two() {
+        let res = solve(read_file_input("07.txt".to_string()));
+        assert_eq!(res.1, 253499763);
     }
 }
