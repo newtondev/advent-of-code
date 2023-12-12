@@ -33,20 +33,12 @@ fn sum_arrangements(input: &str, unfold: bool) -> usize {
             let groups: Vec<usize>;
 
             if unfold {
-                let springs_tmp: Vec<&str> = parts[0]
-                    .split('?')
-                    .collect();
-
-                let groups_tmp: Vec<&str> = parts[1]
-                    .split(',')
-                    .collect();
-
-                springs = unfold_input(springs_tmp)
+                springs = unfold_input(parts[0].split('?').collect())
                     .join("?")
                     .chars()
                     .collect();
 
-                groups = unfold_input(groups_tmp)
+                groups = unfold_input(parts[1].split(',').collect())
                     .join(",")
                     .split(',')
                     .map(|s| s.parse().unwrap())
