@@ -21,14 +21,12 @@ type Cache = HashMap<(Vec<usize>, Vec<char>), usize>;
 fn sum_arrangements(input: &str, unfold: bool) -> usize {
     let mut cache: Cache = HashMap::new();
 
-    input.
-        lines()
+    input
+        .lines()
         .map(|line| {
-            let parts: Vec<&str> = line
-                .split_whitespace()
-                .collect();
+            let parts: Vec<&str> = line.split_whitespace().collect();
             //println!("{:?}", parts);
-            
+
             let springs: Vec<char>;
             let groups: Vec<usize>;
 
@@ -44,23 +42,18 @@ fn sum_arrangements(input: &str, unfold: bool) -> usize {
                     .map(|s| s.parse().unwrap())
                     .collect();
             } else {
-                springs = parts[0]
-                    .chars()
-                    .collect();
+                springs = parts[0].chars().collect();
                 //println!("{:?}", springs);
 
-                groups = parts[1]
-                    .split(',')
-                    .map(|s| s.parse().unwrap())
-                    .collect();
+                groups = parts[1].split(',').map(|s| s.parse().unwrap()).collect();
             }
 
             (springs, groups)
         })
-        .collect::<Vec<(Vec<char>,Vec<usize>)>>()
+        .collect::<Vec<(Vec<char>, Vec<usize>)>>()
         .iter()
         .map(|(springs, groups)| calculate(springs, groups, &mut cache))
-        .sum()        
+        .sum()
 }
 
 fn unfold_input(input: Vec<&str>) -> Vec<&str> {
@@ -74,14 +67,19 @@ fn unfold_input(input: Vec<&str>) -> Vec<&str> {
 
 fn calculate(chars: &Vec<char>, group_sizes: &Vec<usize>, cache: &mut Cache) -> usize {
     if chars.is_empty() {
-        if group_sizes.is_empty() { return 1 };
+        if group_sizes.is_empty() {
+            return 1;
+        };
         return 0;
     }
 
     match chars[0] {
         '.' => calculate(&chars[1..].to_vec(), group_sizes, cache),
         '#' => calculate_hashed(group_sizes, chars, cache),
-        '?' => calculate(&chars[1..].to_vec(), group_sizes, cache) + calculate_hashed(group_sizes, chars, cache),
+        '?' => {
+            calculate(&chars[1..].to_vec(), group_sizes, cache)
+                + calculate_hashed(group_sizes, chars, cache)
+        }
         _ => panic!("Problem calculating"),
     }
 }
@@ -91,7 +89,9 @@ fn calculate_hashed(group_sizes: &Vec<usize>, chars: &Vec<char>, cache: &mut Cac
         return res;
     }
 
-    if group_sizes.is_empty() { return 0; }
+    if group_sizes.is_empty() {
+        return 0;
+    }
 
     let ps = group_sizes[0] as usize;
     if chars.len() < ps {
@@ -112,7 +112,11 @@ fn calculate_hashed(group_sizes: &Vec<usize>, chars: &Vec<char>, cache: &mut Cac
         return 0;
     }
 
-    let res = calculate(&chars[(ps + 1)..].to_vec(), &group_sizes[1..].to_vec(), cache);
+    let res = calculate(
+        &chars[(ps + 1)..].to_vec(),
+        &group_sizes[1..].to_vec(),
+        cache,
+    );
     cache.insert((group_sizes.clone(), chars.clone()), res);
     res
 }
@@ -137,18 +141,18 @@ mod tests {
     #[test]
     fn test_solve_two() {
         let res = sum_arrangements(&read_test_file_input("12_one_b.txt".to_string()), true);
-        assert_eq!(res, 525152);
+        assert_eq!(res, 525_152);
     }
 
     #[test]
     fn actual_solve_one() {
         let res = sum_arrangements(&read_file_input("12.txt".to_string()), false);
-        assert_eq!(res, 7090);
+        assert_eq!(res, 7_090);
     }
 
     #[test]
     fn actual_solve_two() {
         let res = sum_arrangements(&read_file_input("12.txt".to_string()), true);
-        assert_eq!(res, 6792010726878);
+        assert_eq!(res, 6_792_010_726_878);
     }
 }
