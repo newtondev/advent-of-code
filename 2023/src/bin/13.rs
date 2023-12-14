@@ -82,4 +82,16 @@ mod tests {
         let res = solve(read_test_file_input("13_one.txt".to_string()));
         assert_eq!(res.1, 400);
     }
+
+    #[test]
+    fn actual_solve_one() {
+        let res = solve(read_file_input("13.txt".to_string()));
+        assert_eq!(res.0, 37718);
+    }
+
+    #[test]
+    fn actual_solve_two() {
+        let res = solve(read_file_input("13.txt".to_string()));
+        assert_eq!(res.1, 40995);
+    }
 }
