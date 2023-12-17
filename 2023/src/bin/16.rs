@@ -1,7 +1,7 @@
 use aoc::read_file_input;
 use itertools::Itertools;
-use rayon::prelude::*;
 use rayon::iter::IntoParallelIterator;
+use rayon::prelude::*;
 use std::mem;
 
 #[derive(Debug, Clone, Copy)]
@@ -58,7 +58,9 @@ fn calculate_energy(input: &str, start: (usize, usize, Direction)) -> u32 {
             {
                 cursors.push((x - 1, y, Direction::Left))
             }
-            (b'.' | b'|', Direction::Down) | (b'/', Direction::Left) | (b'\\', Direction::Right)
+            (b'.' | b'|', Direction::Down)
+            | (b'/', Direction::Left)
+            | (b'\\', Direction::Right)
                 if y < n - 1 =>
             {
                 cursors.push((x, y + 1, Direction::Down))
@@ -88,9 +90,7 @@ fn calculate_energy(input: &str, start: (usize, usize, Direction)) -> u32 {
         }
     }
 
-    result
-        .into_iter()
-        .filter(Visited::is_energized).count() as u32
+    result.into_iter().filter(Visited::is_energized).count() as u32
 }
 
 fn calculate_most_energized_tiles(input: &str) -> u32 {
