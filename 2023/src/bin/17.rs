@@ -132,12 +132,8 @@ fn shortest_path(
         steps_direction,
     }) = heap.pop()
     {
-        if use_ultra_crucible {
-            if position == goal && steps_direction >= 4 {
-                return Some(cost);
-            }
-        } else {
-            if position == goal {
+        if position == goal {
+            if !use_ultra_crucible || (use_ultra_crucible && steps_direction >= 4) {
                 return Some(cost);
             }
         }
@@ -185,12 +181,13 @@ fn shortest_path(
             };
 
             if use_ultra_crucible {
-                if (direction == *dir || steps_direction >= 4)
+                if (direction == *dir || (steps_direction >= 4))
                     && next.steps_direction <= 10
                     && (!dist.contains_key(&dist_key) || next.cost < dist[&dist_key])
                 {
                     heap.push(next);
                     dist.insert(dist_key, next.cost);
+                    println!("next: {:?}", next.cost);
                 }
             } else {
                 if next.steps_direction <= 3
